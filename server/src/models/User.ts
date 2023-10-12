@@ -7,6 +7,7 @@ export interface UserDocument extends Document {
   name: string;
   surname: string;
   phoneNumber: string;
+  avatar: string; // Add the avatar field
 }
 
 const userSchema = new Schema<UserDocument>({
@@ -16,6 +17,10 @@ const userSchema = new Schema<UserDocument>({
   name: String,
   surname: String,
   phoneNumber: String,
+  avatar: {
+    type: String,
+    default: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+  },
 });
 
 const UserModel = mongoose.model<UserDocument>('User', userSchema);

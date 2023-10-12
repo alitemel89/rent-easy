@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { RentalModel } from "../models/Rental"; // Adjust the path as needed
+import UserModel from "../models/User";
 
 // Create a new rental listing
 export const createRental = async (req: Request, res: Response) => {
@@ -10,10 +11,26 @@ export const createRental = async (req: Request, res: Response) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  try {
-    const { title, description, price, bedrooms, bathrooms, location } =
-      req.body;
 
+  try {
+    const { title, description, price, bedrooms, bathrooms, location } = req.body;
+
+    // Check if the user information is available in the request object
+    if (!req.user) {
+      return res.status(401).json({ msg: 'User information not available' });
+    }
+
+    // Access the authenticated user's ID
+    const userId = req.user.user.id;
+    
+    // Check if the user exists
+    const user = await UserModel.findById(userId);
+   
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Create the rental with the user reference
     const rental = new RentalModel({
       title,
       description,
@@ -21,6 +38,7 @@ export const createRental = async (req: Request, res: Response) => {
       bedrooms,
       bathrooms,
       location,
+      userRef: userId, // Set the user reference
     });
 
     await rental.save();
@@ -28,9 +46,10 @@ export const createRental = async (req: Request, res: Response) => {
     res.status(201).json(rental);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 };
+
 
 // Update a rental listing by ID
 export const updateRental = async (req: Request, res: Response) => {

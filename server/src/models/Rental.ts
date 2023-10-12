@@ -1,5 +1,3 @@
-// src/models/Rental.ts
-
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface RentalDocument extends Document {
@@ -9,6 +7,7 @@ export interface RentalDocument extends Document {
   bedrooms: number;
   bathrooms: number;
   location: string;
+  userRef: Schema.Types.ObjectId; // Add userRef field for user reference
   // Add more fields as needed
 }
 
@@ -19,6 +18,11 @@ const rentalSchema = new Schema<RentalDocument>({
   bedrooms: { type: Number, required: true },
   bathrooms: { type: Number, required: true },
   location: { type: String, required: true },
+  userRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'User', // Refers to the 'User' model (adjust this if needed)
+    required: true,
+  },
   // Define additional fields here
 });
 
