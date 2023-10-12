@@ -24,8 +24,8 @@ export const getUserProfile = async (req: Request, res: Response) => {
   }
 };
 
-// Create user profile
-export const createUserProfile = async (req: Request, res: Response) => {
+// Update user profile
+export const updateUserProfile = async (req: Request, res: Response) => {
   try {
     const { name, surname, phoneNumber } = req.body;
 
@@ -33,7 +33,7 @@ export const createUserProfile = async (req: Request, res: Response) => {
     const user = await UserModel.findById(req.params.id);
 
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ msg: 'User not found' });
     }
 
     // Update user profile information
@@ -47,6 +47,6 @@ export const createUserProfile = async (req: Request, res: Response) => {
     res.json(user);
   } catch (error: any) {
     console.error(error.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 };

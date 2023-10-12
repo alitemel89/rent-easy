@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  createUserProfile,
+  updateUserProfile,
   getUserProfile,
 } from "../controllers/userController";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -10,6 +10,6 @@ const router = express.Router();
 router.get("/:id", authMiddleware, getUserProfile);
 
 // Create user profile by ID
-router.post("/:id", authMiddleware, createUserProfile);
+router.put("/:id", authMiddleware, updateUserProfile);
 
 export default router;
