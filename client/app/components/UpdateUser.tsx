@@ -1,4 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
+"use client";
+
+import React, { useState, ChangeEvent } from "react";
+import useAuthStore from "../stores/authStore";
 
 type UpdateUserProps = {
   currentUser: {
@@ -10,10 +13,11 @@ type UpdateUserProps = {
 };
 
 const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
+  const { updateUserProfile } = useAuthStore();
   const [updatedData, setUpdatedData] = useState({
-    name: currentUser?.name || '',
-    surname: currentUser?.surname || '',
-    phoneNumber: currentUser?.phoneNumber || '',
+    name: currentUser?.name || "",
+    surname: currentUser?.surname || "",
+    phoneNumber: currentUser?.phoneNumber || "",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,35 +27,18 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
 
   const handleUpdate = () => {
     // Create an object with the updated user data
+
     const updatedUser = {
       name: updatedData.name,
       surname: updatedData.surname,
       phoneNumber: updatedData.phoneNumber,
     };
 
-    // Send a PUT request to update the user's profile
-    fetch(`http://localhost:5000/api/profile/${currentUser._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("authToken")}`
-      },
-      body: JSON.stringify(updatedUser),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log('Profile updated successfully');
-        } else {
-          console.error('Profile update failed');
-          // Handle failure, e.g., show an error message
-        }
-      })
-      .catch((error) => {
-        console.error('Profile update failed', error);
-        // Handle the error
-      });
+    updateUserProfile(
+      updatedUser,
+      `http://localhost:5000/api/profile/${currentUser._id}`
+    );
   };
-
   return (
     <div>
       <div className="modal-box p-4 bg-white rounded-md shadow-md w-96">

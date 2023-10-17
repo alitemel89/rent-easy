@@ -2,16 +2,18 @@
 
 import { HomeIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import useUserStore from "../stores/userStore"; // Import the Zustand store
+import useAuthStore from "../stores/authStore";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const currentUser = useUserStore((state) => state.currentUser); // Get the current user from Zustand
-  const { logout } = useUserStore();
+  const { logout } = useAuthStore();
+  const router = useRouter();
+  const user = JSON.parse(localStorage.getItem("user") || "null");
   const handleLogout = () => {
     // Add a function to log the user out and clear their data (you may need to implement this in your store)
     logout();
     // Clear the token from localStorage
-    localStorage.removeItem("authToken");
+    router.push("/");
   };
 
   return (
@@ -23,15 +25,15 @@ const Navbar = () => {
         </Link>
 
         <ul className="flex space-x-6">
-          {currentUser ? ( // Check if a user is logged in
+          {user ? ( // Check if a user is logged in
             <>
               <li>
                 <Link
-                  href={`/user-profile/${currentUser._id}`}
+                  href={`/user-profile/${user?._id}`}
                   className="text-white flex items-center"
                 >
                   <UserIcon className="w-5 h-5 mr-2" />
-                  {currentUser.email} {/* Display the user's email */}
+                  {user?.email} {/* Display the user's email */}
                 </Link>
               </li>
               <li>

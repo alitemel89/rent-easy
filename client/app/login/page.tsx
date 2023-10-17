@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import useUserStore from "../stores/userStore";
+import useAuthStore from "../stores/authStore";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+  const { loginUser } = useAuthStore();
   const router = useRouter();
-  const setUser = useUserStore((state) => state.login);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,32 +18,8 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        // Parse the response JSON to get the token
-        const data = await response.json();
-        const { token, user } = data;
-
-        // Store the token in localStorage
-        localStorage.setItem("authToken", token);
-        setUser(user);
-
-        router.push("/");
-        console.log("Login successful");
-      } else {
-        // Handle login error
-        console.error("Login failed");
-      }
-    } catch (error) {
-      console.error("Login failed", error);
-    }
+    loginUser(formData);
+    router.push("/");
   };
 
   return (
