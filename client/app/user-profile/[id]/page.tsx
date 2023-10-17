@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import UpdateUser from '@/app/components/UpdateUser';
-import { useParams } from 'next/navigation';
-import { User } from '@/app/stores/authStore';
+import React, { useEffect, useState } from "react";
+import UpdateUser from "@/app/components/UpdateUser";
+import { useParams } from "next/navigation";
+import { User } from "@/app/stores/authStore";
 
 const UserProfilePage: React.FC = () => {
   const { id } = useParams(); // Use the useParams hook to get userId from the URL
@@ -13,21 +13,23 @@ const UserProfilePage: React.FC = () => {
     const getUser = async () => {
       try {
         // Check if window is defined (client-side) before using localStorage
-        if (typeof window !== 'undefined') {
-          const response = await fetch(`http://localhost:5000/api/profile/${id}`, {
+
+        const response = await fetch(
+          `http://localhost:5000/api/profile/${id}`,
+          {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
-          });
-
-          if (response.ok) {
-            // If the response is successful, parse the JSON data and set it to currentUser
-            const userData = await response.json();
-            setCurrentUser(userData);
-          } else {
-            console.error("Failed to fetch user profile");
           }
+        );
+
+        if (response.ok) {
+          // If the response is successful, parse the JSON data and set it to currentUser
+          const userData = await response.json();
+          setCurrentUser(userData);
+        } else {
+          console.error("Failed to fetch user profile");
         }
       } catch (error) {
         console.error("An error occurred while fetching user profile:", error);
@@ -36,6 +38,8 @@ const UserProfilePage: React.FC = () => {
 
     getUser();
   }, [id]);
+
+  console.log(currentUser)
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -55,7 +59,7 @@ const UserProfilePage: React.FC = () => {
                 </div>
                 <div className="mb-4">
                   <p className="text-gray-700 text-sm font-bold">User ID:</p>
-                  <p className="text-gray-900">{currentUser?._id}</p>
+                  <p className="text-gray-900">{id}</p>
                 </div>
                 {currentUser?.name && (
                   <div className="mb-4">
@@ -71,7 +75,9 @@ const UserProfilePage: React.FC = () => {
                 )}
                 {currentUser?.phoneNumber && (
                   <div className="mb-4">
-                    <p className="text-gray-700 text-sm font-bold">Phone Number:</p>
+                    <p className="text-gray-700 text-sm font-bold">
+                      Phone Number:
+                    </p>
                     <p className="text-gray-900">{currentUser.phoneNumber}</p>
                   </div>
                 )}

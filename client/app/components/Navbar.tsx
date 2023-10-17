@@ -13,8 +13,9 @@ const Navbar = () => {
     // Add a function to log the user out and clear their data (you may need to implement this in your store)
     logout();
     // Clear the token from localStorage
-    router.push("/");
+    window.location.reload()
   };
+
 
   return (
     <nav className="bg-blue-500 p-4">
@@ -49,10 +50,10 @@ const Navbar = () => {
           ) : (
             <>
               <li>
-                <Link href="/login">Login</Link>
+                <Link href="/login" className="text-white">Login</Link>
               </li>
               <li>
-                <Link href="/register">Register</Link>
+                <Link href="/register" className="text-white">Register</Link>
               </li>
             </>
           )}

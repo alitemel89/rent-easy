@@ -13,6 +13,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
     // Return user profile information
     res.json({
       email: user.email,
+      avatar: user.avatar,
       username: user.username,
       name: user.name,
       surname: user.surname,

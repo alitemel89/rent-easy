@@ -2,6 +2,7 @@
 
 import React, { useState, ChangeEvent } from "react";
 import useAuthStore from "../stores/authStore";
+import { useParams } from "next/navigation";
 
 type UpdateUserProps = {
   currentUser: {
@@ -14,6 +15,7 @@ type UpdateUserProps = {
 
 const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
   const { updateUserProfile } = useAuthStore();
+  const { id  } = useParams()
   const [updatedData, setUpdatedData] = useState({
     name: currentUser?.name || "",
     surname: currentUser?.surname || "",
@@ -36,8 +38,11 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
 
     updateUserProfile(
       updatedUser,
-      `http://localhost:5000/api/profile/${currentUser._id}`
+      `http://localhost:5000/api/profile/${id}`
     );
+
+    window.location.reload()
+
   };
   return (
     <div>
