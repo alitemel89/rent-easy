@@ -6,7 +6,7 @@ import useUserStore from "../stores/userStore";
 
 const LoginPage = () => {
   const router = useRouter();
-  const setUser = useUserStore((state: any) => state.login);
+  const setUser = useUserStore((state) => state.login);
   const [formData, setFormData] = useState({
     email: "",
     password: "",

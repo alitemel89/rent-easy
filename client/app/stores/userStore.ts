@@ -1,15 +1,23 @@
 import { create } from 'zustand';
 
 type User = {
-  id: string;
+  _id: string;
+  avatar: string;
   name: string;
+  surname: string;
   email: string;
   phoneNumber: string;
 };
 
-const useUserStore = create((set) => ({
-  currentUser: null as User | null,
-  login: (user: User) => set({ currentUser: user }),
+type UserStore = {
+  currentUser: User | null;
+  login: (user: User) => void;
+  logout: () => void;
+};
+
+const useUserStore = create<UserStore>((set) => ({
+  currentUser: null,
+  login: (user) => set({ currentUser: user }),
   logout: () => set({ currentUser: null }),
 }));
 

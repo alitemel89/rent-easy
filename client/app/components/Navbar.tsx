@@ -1,9 +1,19 @@
-"use client"
+"use client";
 
 import { HomeIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import useUserStore from "../stores/userStore"; // Import the Zustand store
 
 const Navbar = () => {
+  const currentUser = useUserStore((state) => state.currentUser); // Get the current user from Zustand
+  const { logout } = useUserStore();
+  const handleLogout = () => {
+    // Add a function to log the user out and clear their data (you may need to implement this in your store)
+    logout();
+    // Clear the token from localStorage
+    localStorage.removeItem("authToken");
+  };
+
   return (
     <nav className="bg-blue-500 p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -13,18 +23,37 @@ const Navbar = () => {
         </Link>
 
         <ul className="flex space-x-6">
-          <li>
-            <Link href="/user-profile" className="text-white flex items-center">
-              <UserIcon className="w-5 h-5 mr-2" />
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-          <li>
-            <Link href="/register">Register</Link>
-          </li>
+          {currentUser ? ( // Check if a user is logged in
+            <>
+              <li>
+                <Link
+                  href={`/user-profile/${currentUser._id}`}
+                  className="text-white flex items-center"
+                >
+                  <UserIcon className="w-5 h-5 mr-2" />
+                  {currentUser.email} {/* Display the user's email */}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  onClick={handleLogout} // Call the logout function when clicking "Logout"
+                  className="text-white"
+                >
+                  Logout
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
+              <li>
+                <Link href="/register">Register</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
