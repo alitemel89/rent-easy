@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
         console.error(err.message);
         res.status(500).send('Server error');
       } else if (token) {
-        res.json({ token });
+        res.json({ token, user });
       }
     });
   } catch (error: any) {
