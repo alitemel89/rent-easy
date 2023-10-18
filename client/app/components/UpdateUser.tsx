@@ -40,14 +40,11 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
       updatedUser,
       `http://localhost:5000/api/profile/${id}`
     );
-
-    window.location.reload()
-
   };
   return (
     <div>
-      <div className="modal-box p-4 bg-white rounded-md shadow-md w-96">
-        <h2 className="text-xl font-semibold mb-4">Update Profile</h2>
+      <div className="p-8 bg-white shadow-xl rounded-3xl">
+        <h2 className="text-3xl text-blue-950 mb-4 font-extrabold">Update Profile</h2>
         <div className="mb-4">
           <label className="text-gray-700" htmlFor="name">
             Name:

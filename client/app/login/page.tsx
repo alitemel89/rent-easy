@@ -25,9 +25,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <div className="flex items-center bg-slate-50 min-h-screen px-8">
-        <div className="w-1/2">
+    <div className="bg-blue-50">
+      <div className="md:flex items-center min-h-screen">
+        <div className="w-full md:w-1/2">
           <Image
             src="/images/login.svg" // Replace with the path to your image
             alt="Login Image"
@@ -38,7 +38,7 @@ const LoginPage = () => {
           />
         </div>
         <form
-          className="w-1/2 bg-white shadow-xl rounded-md px-8 pt-6 pb-8 mx-auto"
+          className="w-full md:w-1/2 mt-4 bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mx-auto max-w-2xl"
           onSubmit={handleSubmit}
         >
           <h1 className="text-left text-3xl text-blue-950 font-extrabold mb-8">

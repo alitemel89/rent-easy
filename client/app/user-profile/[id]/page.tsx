@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import UpdateUser from "@/app/components/UpdateUser";
 import { useParams } from "next/navigation";
-import { User } from "@/app/stores/authStore";
+import useAuthStore, { User } from "@/app/stores/authStore";
 
 const UserProfilePage: React.FC = () => {
   const { id } = useParams(); // Use the useParams hook to get userId from the URL
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { user } = useAuthStore()
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,19 +38,18 @@ const UserProfilePage: React.FC = () => {
     };
 
     getUser();
-  }, [id]);
+  }, [id, user]);
 
-  console.log(currentUser)
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="container mx-auto flex">
+    <div className="bg-blue-50 min-h-screen">
+      <div className="container mx-auto md:flex">
         {/* User Profile Section (2/3 width) */}
-        <div className="w-2/3 p-4">
+        <div className="md:w-3/5 w-full p-4">
           {currentUser && (
-            <div className="bg-white shadow-md rounded p-8">
+            <div className="bg-white shadow-xl rounded-3xl p-8">
               <>
-                <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
+                <h2 className="text-3xl text-blue-950 mb-4 font-extrabold">User Profile</h2>
                 <div className="mb-4">
                   <p className="text-gray-700 text-sm font-bold">Avatar:</p>
                   <img
@@ -88,7 +88,7 @@ const UserProfilePage: React.FC = () => {
 
         {currentUser && (
           // Update User Section (1/3 width)
-          <div className="w-1/3 p-4">
+          <div className="md:w-2/5 w-full p-4">
             <UpdateUser currentUser={currentUser} />
           </div>
         )}
