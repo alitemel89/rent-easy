@@ -13,16 +13,15 @@ const Navbar = () => {
     // Add a function to log the user out and clear their data (you may need to implement this in your store)
     logout();
     // Clear the token from localStorage
-    window.location.reload()
+    window.location.reload();
   };
 
-
   return (
-    <nav className="bg-blue-500 p-4">
+    <nav className="p-6 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-white text-2xl flex items-center">
-          <HomeIcon className="w-6 h-6 mr-2" />
-          Rent Easy
+        <Link href="/" className="text-white text-xl flex items-center">
+          <HomeIcon className="w-8 h-8 mr-2 text-blue-950" />
+          <p className="text-blue-950 font-extrabold text-3xl">Rent Easy</p>
         </Link>
 
         <ul className="flex space-x-6">
@@ -50,10 +49,18 @@ const Navbar = () => {
           ) : (
             <>
               <li>
-                <Link href="/login" className="text-white">Login</Link>
+                <Link
+                  href="/login"
+                  className="bg-indigo-600 hover-bg-blue-700 text-white font-bold py-3 px-6 
+                  rounded-md focus:outline-none focus:shadow-outline"
+                >
+                  Login
+                </Link>
               </li>
               <li>
-                <Link href="/register" className="text-white">Register</Link>
+                <Link href="/register" className="text-blue-950">
+                  Register
+                </Link>
               </li>
             </>
           )}
