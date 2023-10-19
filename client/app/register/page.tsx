@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 const RegisterPage = () => {
-    const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,32 +21,55 @@ const RegisterPage = () => {
 
     // Make a POST request to your API to register the user
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         // Registration successful
-        console.log('Registration successful');
-        router.push("/login")
+        toast.success("Registration is successful!");
+        router.push("/login");
       } else {
         // Registration failed
-        console.error('Registration failed');
+        console.error("Registration failed");
       }
     } catch (error) {
-      console.error('Registration failed', error);
+      console.error("Registration failed", error);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        position: "relative",
+      }}
+    >
+      <Image
+        src="/images/bg-1.jpg"
+        alt="Background Image"
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+        quality={100}
+      />
+      <form
+        className="bg-white shadow-xl rounded-3xl px-8 pt-6 pb-8 mb-4
+      w-full md:w-1/2 z-10"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="text-left text-3xl text-blue-950 font-extrabold mb-8">
+          Sign up
+        </h1>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
+          >
             Username
           </label>
           <input
@@ -60,7 +84,10 @@ const RegisterPage = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
             Email
           </label>
           <input
@@ -75,7 +102,10 @@ const RegisterPage = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
             Password
           </label>
           <input

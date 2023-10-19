@@ -45,14 +45,14 @@ const Navbar = () => {
             <>
               <Link
                 href="/login"
-                className="bg-indigo-600 hover-bg-blue-700 text-white font-bold py-3 px-6 
+                className="bg-indigo-600 hover-bg-blue-700 text-white font-bold py-1.5 px-6
                   rounded-md focus:outline-none focus:shadow-outline"
               >
                 Login
               </Link>
               <Link
                 href="/register"
-                className="text-blue-950 font-bold py-3 px-6 
+                className="text-blue-950 font-bold py-1.5 px-6
                   rounded-md focus:outline-none focus:shadow-outline"
               >
                 Register
@@ -71,7 +71,7 @@ const Navbar = () => {
         {menuOpen && (
           <div
             className="md:hidden flex flex-col rounded-lg items-end 
-          absolute top-10 right-6 bg-slate-50 p-4 space-y-2"
+          absolute top-12 right-8 bg-slate-50 p-4 space-y-2"
           >
             {user ? (
               <>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="text-blue-950 text-center mx-auto px-8 py-2"
+                  className="text-blue-950 text-center mx-auto px-8 py-2 hover:text-blue-500"
                   onClick={() => setMenuOpen(false)}
                 >
                   Register
