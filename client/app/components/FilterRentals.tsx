@@ -1,11 +1,11 @@
 // FilterRentals.tsx
-"use client"
-import React, { useState, ChangeEvent } from 'react';
+"use client";
+import React, { useState, ChangeEvent } from "react";
 
 export interface RentalFilter {
-    minBedrooms: string;
-    maxPrice: string;
-  }
+  minBedrooms: string;
+  maxPrice: string;
+}
 
 export interface FilterRentalsProps {
   onFilterChange: (filter: RentalFilter) => void;
@@ -13,8 +13,8 @@ export interface FilterRentalsProps {
 
 const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
   const [filters, setFilters] = useState<RentalFilter>({
-    minBedrooms: '',
-    maxPrice: '',
+    minBedrooms: "",
+    maxPrice: "",
   });
 
   const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +30,18 @@ const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
     onFilterChange(filters);
   };
 
+  const clearFilters = () => {
+    // Create an object with empty values to clear the filters
+    const clearedFilters: RentalFilter = {
+      minBedrooms: "",
+      maxPrice: "",
+    };
+    setFilters(clearedFilters);
+    onFilterChange(clearedFilters);
+  };
+
   return (
-    <div className="bg-gray-200 p-4 rounded-md shadow-md">
+    <div className="bg-indigo-200 p-4 rounded-3xl shadow-xl">
       <h2 className="text-lg font-semibold mb-2">Filter Rentals</h2>
       <form onSubmit={handleFilterSubmit}>
         <div className="mb-4">
@@ -54,13 +64,23 @@ const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
             className="w-full p-2 rounded-md border border-gray-300 focus:outline-none"
           />
         </div>
-        <button
-          type="submit"
-          onClick={handleFilterSubmit}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
-        >
-          Apply Filters
-        </button>
+        <div className="flex items-center justify-between">
+          <button
+            type="submit"
+            onClick={handleFilterSubmit}
+            className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          >
+            Apply Filters
+          </button>
+
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-blue-950 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          >
+            Clear Filters
+          </button>
+        </div>
       </form>
     </div>
   );

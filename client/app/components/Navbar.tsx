@@ -45,7 +45,7 @@ const Navbar = () => {
             <>
               <Link
                 href="/login"
-                className="bg-indigo-600 hover-bg-blue-700 text-white font-bold py-1.5 px-6
+                className="bg-indigo-500 hover-bg-blue-700 text-white font-bold py-1.5 px-6
                   rounded-md focus:outline-none focus:shadow-outline"
               >
                 Login
@@ -97,7 +97,7 @@ const Navbar = () => {
               <>
                 <Link
                   href="/login"
-                  className="bg-blue-500 rounded-md text-white text-center mx-auto px-8 py-2"
+                  className="bg-indigo-500 rounded-md text-white text-center mx-auto px-8 py-2"
                   onClick={() => setMenuOpen(false)}
                 >
                   Login

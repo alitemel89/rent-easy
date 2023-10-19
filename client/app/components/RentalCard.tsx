@@ -23,13 +23,13 @@ interface RentalCardProps {
 const RentalCard: React.FC<RentalCardProps> = ({ rental }) => {
   return (
     <Link href={`/rentals/${rental._id}`}>
-        <div className="bg-white rounded-3xl p-4 shadow-xl">
-          <h2 className="text-lg font-semibold">{rental.title}</h2>
+        <div className="bg-white rounded-3xl p-6 shadow-xl">
+          <h2 className="text-xl font-semibold text-blue-950 mb-2">{rental.title}</h2>
           <p className="text-gray-500 text-sm mb-2">{rental.location}</p>
           <p className="text-gray-700 mb-4">{rental.description}</p>
           <div className="flex justify-between">
-            <p className="text-gray-700 text-lg">${rental.price} / month</p>
-            <p className="text-gray-700">
+            <p className="text-blue-950 text-lg font-extrabold">${rental.price} / month</p>
+            <p className="text-indigo-500">
               {rental.bedrooms} BR | {rental.bathrooms} BA
             </p>
           </div>
