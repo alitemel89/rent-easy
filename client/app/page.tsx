@@ -15,10 +15,10 @@ export default function Home() {
   };
   return (
     <div className="md:flex gap-4 mx-auto p-8 bg-blue-50 min-h-screen">
-      <div className="md:w-1/5 w-full mb-4">
+      <div className="md:w-1/3 w-full mb-4">
         <FilterRentals onFilterChange={handleFilterChange} />
       </div>
-      <div className="md:w-4/5 w-full">
+      <div className="md:w-2/3 w-full">
         <Rentals filter={filter }/>
       </div>
     </div>
