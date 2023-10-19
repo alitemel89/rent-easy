@@ -62,7 +62,7 @@ const useAuthStore = create<AuthState>((set) => ({
         toast.success("Login is successful!");
         localStorage.setItem("user", JSON.stringify(user));
       } else {
-        console.error("Login failed");
+        toast.error("Login failed");
       }
     } catch (error) {
       console.error("Login failed", error);
