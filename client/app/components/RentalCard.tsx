@@ -1,5 +1,6 @@
 // RentalCard.tsx
 "use client"
+import Link from 'next/link';
 import React from 'react';
 
 export interface Rental {
@@ -21,17 +22,19 @@ interface RentalCardProps {
 
 const RentalCard: React.FC<RentalCardProps> = ({ rental }) => {
   return (
-    <div className="bg-white rounded-md p-4 shadow-md">
-      <h2 className="text-lg font-semibold">{rental.title}</h2>
-      <p className="text-gray-500 text-sm mb-2">{rental.location}</p>
-      <p className="text-gray-700 mb-4">{rental.description}</p>
-      <div className="flex justify-between">
-        <p className="text-gray-700 text-lg">${rental.price} / month</p>
-        <p className="text-gray-700">
-          {rental.bedrooms} BR | {rental.bathrooms} BA
-        </p>
-      </div>
-    </div>
+    <Link href={`/rentals/${rental._id}`}>
+        <div className="bg-white rounded-3xl p-4 shadow-xl">
+          <h2 className="text-lg font-semibold">{rental.title}</h2>
+          <p className="text-gray-500 text-sm mb-2">{rental.location}</p>
+          <p className="text-gray-700 mb-4">{rental.description}</p>
+          <div className="flex justify-between">
+            <p className="text-gray-700 text-lg">${rental.price} / month</p>
+            <p className="text-gray-700">
+              {rental.bedrooms} BR | {rental.bathrooms} BA
+            </p>
+          </div>
+        </div>
+    </Link>
   );
 };
 

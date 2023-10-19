@@ -44,7 +44,6 @@ const UserProfilePage: React.FC = () => {
   return (
     <div className="bg-blue-50 min-h-screen">
       <div className="container mx-auto md:flex">
-        {/* User Profile Section (2/3 width) */}
         <div className="md:w-3/5 w-full p-4">
           {currentUser && (
             <div className="bg-white shadow-xl rounded-3xl p-8">
@@ -87,7 +86,6 @@ const UserProfilePage: React.FC = () => {
         </div>
 
         {currentUser && (
-          // Update User Section (1/3 width)
           <div className="md:w-2/5 w-full p-4">
             <UpdateUser currentUser={currentUser} />
           </div>

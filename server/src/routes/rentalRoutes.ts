@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRental, updateRental, deleteRental, getRentals } from '../controllers/rentalController';
+import { createRental, updateRental, deleteRental, getRentals, getRental } from '../controllers/rentalController';
 import { authMiddleware } from '../middleware/authMiddleware'; // Import your authMiddleware
 
 const router = express.Router();
@@ -15,5 +15,7 @@ router.delete('/delete/:id', authMiddleware, deleteRental); // Protect this rout
 
 // Get all rental listings (public route, no authentication required)
 router.get('/all', getRentals);
+
+router.get('/:id', getRental);
 
 export default router;

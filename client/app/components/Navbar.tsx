@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-4 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
+    <nav className="p-6 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-white text-xl flex items-center">
           <HomeIcon className="w-8 h-8 mr-2 text-blue-950" />

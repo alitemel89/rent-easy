@@ -5,7 +5,7 @@ import Rentals from "./components/Rentals";
 
 export default function Home() {
   return (
-    <div className="flex gap-4 mx-auto container px-8 mt-8">
+    <div className="flex gap-4 mx-auto p-8 bg-blue-50 min-h-screen">
       <div className="w-1/5">
         Filter Rentals
       </div>

@@ -11,26 +11,21 @@ export const createRental = async (req: Request, res: Response) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-
   try {
     const { title, description, price, bedrooms, bathrooms, location } = req.body;
 
-    // Check if the user information is available in the request object
     if (!req.user) {
       return res.status(401).json({ msg: 'User information not available' });
     }
 
-    // Access the authenticated user's ID
     const userId = req.user.user.id;
-    
-    // Check if the user exists
+
     const user = await UserModel.findById(userId);
-   
+
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
 
-    // Create the rental with the user reference
     const rental = new RentalModel({
       title,
       description,
@@ -38,12 +33,19 @@ export const createRental = async (req: Request, res: Response) => {
       bedrooms,
       bathrooms,
       location,
-      userRef: userId, // Set the user reference
+      userRef: userId,
     });
 
     await rental.save();
 
-    res.status(201).json(rental);
+    // Now, let's populate the user details in the rental object
+    const populatedRental = await rental
+      .populate({
+        path: "userRef",
+        select: "name surname phoneNumber",
+      })
+
+    res.status(201).json(populatedRental);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send('Server error');
@@ -105,6 +107,26 @@ export const getRentals = async (req: Request, res: Response) => {
     const rentals = await RentalModel.find(); // Use your model to fetch all rental listings
 
     res.json(rentals);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+
+// Get a single rental listing by ID
+export const getRental = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // Use Mongoose's populate method to fetch the user information
+    const rental = await RentalModel.findById(id).populate("userRef", "name surname phoneNumber");
+
+    if (!rental) {
+      return res.status(404).json({ msg: "Rental listing not found" });
+    }
+
+    res.json(rental);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Server error");
