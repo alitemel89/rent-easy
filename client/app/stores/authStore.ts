@@ -46,7 +46,7 @@ const useAuthStore = create<AuthState>((set) => ({
   },
   loginUser: async (formData: FormData) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://rent-easy-backend.onrender.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

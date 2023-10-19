@@ -38,7 +38,7 @@ const UpdateUser: React.FC<UpdateUserProps> = ({ currentUser }) => {
 
     updateUserProfile(
       updatedUser,
-      `http://localhost:5000/api/profile/${id}`
+      `https://rent-easy-backend.onrender.com/api/profile/${id}`
     );
   };
   return (

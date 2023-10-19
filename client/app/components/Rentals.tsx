@@ -21,7 +21,7 @@ const Rentals = ({ filter }: RentalsProps) => {
     // Fetch the list of rentals from your API or data source
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/rentals/all");
+        const response = await fetch("https://rent-easy-backend.onrender.com/");
         if (response.ok) {
           const data = await response.json();
           setRentals(data); // Assuming 'data' is an array of rental objects

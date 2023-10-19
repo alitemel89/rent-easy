@@ -30,7 +30,7 @@ const RentalDetails = () => {
   useEffect(() => {
     if (id) {
       // Fetch the rental details based on the ID
-      fetch(`http://localhost:5000/api/rentals/${id}`)
+      fetch(`https://rent-easy-backend.onrender.com/api/rentals/${id}`)
         .then((response) => response.json())
         .then((data) => {
           setRental(data);
