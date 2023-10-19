@@ -1,13 +1,13 @@
 "use client";
 
-import { HomeIcon, UserIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import { HomeIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import useAuthStore from "../stores/authStore";
 import { useState } from "react";
 
 const Navbar = () => {
   const { logout } = useAuthStore();
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const { user } = useAuthStore();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
@@ -34,10 +34,10 @@ const Navbar = () => {
                 href={`/user-profile/${user?._id}`}
                 className="text-white flex items-center"
               >
-                <UserIcon className="w-5 h-5 mr-2" />
+                <UserCircleIcon className="w-8 h-8 mr-2" />
                 {user?.email} {/* Display the user's email */}
               </Link>
-              <Link href="#" onClick={handleLogout} className="text-white">
+              <Link href="#" onClick={handleLogout} className="text-white flex items-center">
                 Logout
               </Link>
             </>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="text-blue-950 text-center mx-auto px-8 py-2 hover:text-blue-500"
+                  className="text-blue-950 text-center mx-auto px-8 py-2"
                   onClick={() => setMenuOpen(false)}
                 >
                   Register

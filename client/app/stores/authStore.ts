@@ -1,5 +1,3 @@
-
-
 import { create } from "zustand";
 import { toast } from "react-hot-toast";
 
@@ -17,7 +15,6 @@ interface FormData {
   password: string;
 }
 
-
 interface UpdatedData {
   name: string;
   surname: string;
@@ -26,17 +23,25 @@ interface UpdatedData {
 
 interface AuthState {
   user: User | null;
+  init: () => void;
   logout: () => void;
   loginUser: (formData: FormData) => Promise<void>;
   updateUserProfile: (updatedData: UpdatedData, url: string) => void;
-};
+}
 
 const useAuthStore = create<AuthState>((set) => ({
   user: null,
+  init: () => {
+    // Access localStorage only on the client-side
+    if (typeof window !== "undefined") {
+      const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+      set({ user: storedUser });
+    }
+  },
   logout: () => {
     // Clear the user and the authToken from localStorage
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
     set({ user: null });
   },
   loginUser: async (formData: FormData) => {
@@ -55,7 +60,7 @@ const useAuthStore = create<AuthState>((set) => ({
 
         set({ user: user });
         toast.success("Login is successful!");
-        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("user", JSON.stringify(user));
       } else {
         console.error("Login failed");
       }
@@ -68,30 +73,30 @@ const useAuthStore = create<AuthState>((set) => ({
     try {
       // Send a PUT request to update the user's profile
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
         body: JSON.stringify(updatedData),
       });
 
       if (response.ok) {
-        toast.success('Profile updated successfully');
+        toast.success("Profile updated successfully");
         // Fetch the updated user data and update the state with Zustand
         const updatedUserData = await response.json();
         set({ user: updatedUserData }); // Update the 'user' state with the updated user data
       } else {
-        toast.error('Profile update failed');
+        toast.error("Profile update failed");
         // Handle failure, e.g., show an error message
       }
     } catch (error: any) {
-      toast.error('Profile update failed', error);
+      toast.error("Profile update failed", error);
       // Handle the error
     }
-  }
-
-
+  },
 }));
+
+useAuthStore.getState().init();
 
 export default useAuthStore;
