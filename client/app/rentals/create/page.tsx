@@ -42,8 +42,8 @@ export default function CreateRentalPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+    <div className="bg-blue-50 min-h-screen flex items-center justify-center">
+      <div className="bg-white p-6 rounded-3xl shadow-xl w-full md:w-1/2">
         <h1 className="text-2xl font-semibold mb-4">Create Rental</h1>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
@@ -109,7 +109,7 @@ export default function CreateRentalPage() {
             <button
             onClick={handleFormSubmit}
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+              className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
             >
               Create Rental
             </button>
