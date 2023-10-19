@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import UpdateUser from "@/app/components/UpdateUser";
 import { useParams } from "next/navigation";
 import useAuthStore, { User } from "@/app/stores/authStore";
+import Link from "next/link";
 
 const UserProfilePage: React.FC = () => {
   const { id } = useParams(); // Use the useParams hook to get userId from the URL
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const { user } = useAuthStore()
+  const { user } = useAuthStore();
 
   useEffect(() => {
     const getUser = async () => {
@@ -40,15 +41,23 @@ const UserProfilePage: React.FC = () => {
     getUser();
   }, [id, user]);
 
-
   return (
     <div className="bg-blue-50 min-h-screen">
+      <div className="text-center p-4">
+        <Link href="/rentals/create" className="bg-indigo-500 hover:bg-blue-700 text-white 
+        font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+        >
+          Create Rental
+        </Link>
+      </div>
       <div className="container mx-auto md:flex">
         <div className="md:w-3/5 w-full p-4">
           {currentUser && (
             <div className="bg-white shadow-xl rounded-3xl p-8">
               <>
-                <h2 className="text-3xl text-blue-950 mb-4 font-extrabold">User Profile</h2>
+                <h2 className="text-3xl text-blue-950 mb-4 font-extrabold">
+                  User Profile
+                </h2>
                 <div className="mb-4">
                   <p className="text-gray-700 text-sm font-bold">Avatar:</p>
                   <img
