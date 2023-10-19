@@ -2,9 +2,21 @@
 
 import React, { useEffect, useState } from "react";
 import RentalCard, { Rental } from "./RentalCard";
+import { RentalFilter } from "./FilterRentals";
 
-const Rentals: React.FC = () => {
+interface RentalsProps {
+  filter: RentalFilter;
+}
+
+interface RentalsProps {
+  filter: RentalFilter;
+}
+
+
+const Rentals = ({ filter }: RentalsProps) => {
   const [rentals, setRentals] = useState<Rental[]>([]);
+
+  
 
   useEffect(() => {
     // Fetch the list of rentals from your API or data source
@@ -23,9 +35,16 @@ const Rentals: React.FC = () => {
     fetchData();
   }, []);
 
+  const filteredRentals = rentals.filter((rental) => {
+    return (
+      (filter.minBedrooms === '' || rental.bedrooms >= parseInt(filter.minBedrooms)) &&
+      (filter.maxPrice === '' || rental.price <= parseInt(filter.maxPrice))
+    );
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {rentals.map((rental) => (
+      {filteredRentals.map((rental) => (
         <RentalCard key={rental._id} rental={rental} />
       ))}
     </div>

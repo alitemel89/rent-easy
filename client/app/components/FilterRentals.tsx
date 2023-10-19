@@ -2,19 +2,17 @@
 "use client"
 import React, { useState, ChangeEvent } from 'react';
 
-interface RentalFilter {
-    location: string;
+export interface RentalFilter {
     minBedrooms: string;
     maxPrice: string;
   }
 
-interface FilterRentalsProps {
+export interface FilterRentalsProps {
   onFilterChange: (filter: RentalFilter) => void;
 }
 
 const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
   const [filters, setFilters] = useState<RentalFilter>({
-    location: '',
     minBedrooms: '',
     maxPrice: '',
   });
@@ -37,16 +35,6 @@ const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
       <h2 className="text-lg font-semibold mb-2">Filter Rentals</h2>
       <form onSubmit={handleFilterSubmit}>
         <div className="mb-4">
-          <label className="text-gray-700 text-sm">Location:</label>
-          <input
-            type="text"
-            name="location"
-            value={filters.location}
-            onChange={handleFilterChange}
-            className="w-full p-2 rounded-md border border-gray-300 focus:outline-none"
-          />
-        </div>
-        <div className="mb-4">
           <label className="text-gray-700 text-sm">Minimum Bedrooms:</label>
           <input
             type="number"
@@ -68,6 +56,7 @@ const FilterRentals: React.FC<FilterRentalsProps> = ({ onFilterChange }) => {
         </div>
         <button
           type="submit"
+          onClick={handleFilterSubmit}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
         >
           Apply Filters
