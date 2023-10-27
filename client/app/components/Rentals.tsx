@@ -21,7 +21,7 @@ const Rentals = ({ filter }: RentalsProps) => {
     // Fetch the list of rentals from your API or data source
     const fetchData = async () => {
       try {
-        const response = await fetch("https://rent-easy-backend.onrender.com/api/rentals/all");
+        const response = await fetch(`http://localhost:5000/api/rentals/all`);
         if (response.ok) {
           const data = await response.json();
           setRentals(data); // Assuming 'data' is an array of rental objects
@@ -66,7 +66,7 @@ const Rentals = ({ filter }: RentalsProps) => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {paginatedRentals.map((rental) => (
           <RentalCard key={rental._id} rental={rental} />
         ))}

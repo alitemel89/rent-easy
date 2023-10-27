@@ -132,3 +132,28 @@ export const getRental = async (req: Request, res: Response) => {
     res.status(500).send("Server error");
   }
 };
+
+
+export const getRentalsByUser = async (req: Request, res: Response) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ msg: "User information not available" });
+    }
+
+    const userId = req.user.user.id;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    // Fetch all rental listings associated with the user
+    const rentals = await RentalModel.find({ userRef: userId });
+
+    res.json(rentals);
+  } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};

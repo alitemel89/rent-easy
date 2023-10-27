@@ -17,7 +17,7 @@ const UserProfilePage: React.FC = () => {
         // Check if window is defined (client-side) before using localStorage
 
         const response = await fetch(
-          `https://rent-easy-backend.onrender.com/api/profile/${id}`,
+          `http://localhost:5000/api/profile/${id}`,
           {
             method: "GET",
             headers: {
@@ -43,13 +43,6 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div className="bg-blue-50 min-h-screen">
-      <div className="text-center p-4">
-        <Link href="/rentals/create" className="bg-indigo-500 hover:bg-blue-700 text-white 
-        font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
-        >
-          Create Rental
-        </Link>
-      </div>
       <div className="container mx-auto md:flex">
         <div className="md:w-3/5 w-full p-4">
           {currentUser && (

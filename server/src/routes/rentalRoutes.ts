@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRental, updateRental, deleteRental, getRentals, getRental } from '../controllers/rentalController';
+import { createRental, updateRental, deleteRental, getRentals, getRental, getRentalsByUser } from '../controllers/rentalController';
 import { authMiddleware } from '../middleware/authMiddleware'; // Import your authMiddleware
 
 const router = express.Router();
@@ -17,5 +17,8 @@ router.delete('/delete/:id', authMiddleware, deleteRental); // Protect this rout
 router.get('/all', getRentals);
 
 router.get('/:id', getRental);
+
+// Add a route for fetching rentals by user
+router.get("/", authMiddleware, getRentalsByUser);
 
 export default router;

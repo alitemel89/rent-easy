@@ -21,7 +21,7 @@ export default function CreateRentalPage() {
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
     try {
-        const response = await fetch('https://rent-easy-backend.onrender.com/api/rentals/create', {
+        const response = await fetch('http://localhost:5000/api/rentals/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

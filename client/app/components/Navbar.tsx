@@ -1,9 +1,14 @@
 "use client";
 
-import { HomeIcon, UserCircleIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import {
+  HomeIcon,
+  UserCircleIcon,
+  Bars3Icon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import useAuthStore from "../stores/authStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { logout } = useAuthStore();
@@ -18,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-6 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
+    <div className="p-6 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-white text-xl flex items-center">
           <HomeIcon className="w-8 h-8 mr-2 text-blue-950" />
@@ -27,22 +32,38 @@ const Navbar = () => {
           </p>
         </Link>
 
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex space-x-4">
           {user ? (
-            <>
+            <div className="flex items-center">
+              <Link
+                href={`/user-profile/${user?._id}/rentals`}
+                className="text-white flex items-center mr-4 bg-indigo-500 px-6 py-2 rounded-md"
+              >
+                My Rentals
+              </Link>
+              <div>
+                <UserCircleIcon className="w-8 h-8 mr-2 text-white" />
+              </div>
+
               <Link
                 href={`/user-profile/${user?._id}`}
-                className="text-white flex items-center"
+                className="text-white flex items-center mr-4"
               >
-                <UserCircleIcon className="w-8 h-8 mr-2" />
                 {user?.email} {/* Display the user's email */}
               </Link>
-              <Link href="#" onClick={handleLogout} className="text-white flex items-center">
-                Logout
+              <Link
+                href="#"
+                onClick={handleLogout}
+                className="text-white border
+               border-white px-4 py-2 rounded-md flex items-center
+               transition-all ease-out duration-200"
+              >
+                <span className="mx-2 text-white">Log out</span>
+                <ArrowRightOnRectangleIcon className="w-4 h-4 text-white" />
               </Link>
-            </>
+            </div>
           ) : (
-            <>
+            <div>
               <Link
                 href="/login"
                 className="bg-indigo-500 hover-bg-blue-700 text-white font-bold py-1.5 px-6
@@ -57,7 +78,7 @@ const Navbar = () => {
               >
                 Register
               </Link>
-            </>
+            </div>
           )}
         </div>
 
@@ -71,30 +92,31 @@ const Navbar = () => {
         {menuOpen && (
           <div
             className="md:hidden flex flex-col rounded-lg items-end 
-          absolute top-12 right-8 bg-slate-50 p-4 space-y-2"
+          absolute top-12 right-8 bg-slate-50 space-y-2 w-56 py-4"
           >
             {user ? (
-              <>
+              <div className="mx-auto">
                 <Link
                   href={`/user-profile/${user?._id}`}
                   onClick={() => setMenuOpen(false)}
-                  className="text-blue-950 text-center mx-auto hover:text-indigo-600"
+                  className="text-blue-950 text-center hover:text-indigo-600"
                 >
                   User Profile
                 </Link>
                 <Link
                   href="#"
-                  className="text-blue-950 mx-auto hover:text-indigo-600"
+                  className="text-blue-950 flex items-center space-x-2 hover:text-indigo-600 mt-4"
                   onClick={() => {
                     setMenuOpen(false);
                     handleLogout();
                   }}
                 >
-                  Logout
+                  <span>Log out</span>
+                  <ArrowRightOnRectangleIcon className="w-6 h-6" />
                 </Link>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="flex flex-col mx-auto">
                 <Link
                   href="/login"
                   className="bg-indigo-500 rounded-md text-white text-center mx-auto px-8 py-2"
@@ -109,12 +131,12 @@ const Navbar = () => {
                 >
                   Register
                 </Link>
-              </>
+              </div>
             )}
           </div>
         )}
       </div>
-    </nav>
+    </div>
   );
 };
 
