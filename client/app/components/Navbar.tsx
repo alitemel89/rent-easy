@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="p-6 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
+    <div className="p-5 h-20 shadow-sm bg-gradient-to-r from-indigo-300 to-red-300 sticky z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-white text-xl flex items-center">
           <HomeIcon className="w-8 h-8 mr-2 text-blue-950" />
@@ -37,7 +37,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <Link
                 href={`/user-profile/${user?._id}/rentals`}
-                className="text-white flex items-center mr-4 bg-indigo-500 px-6 py-2 rounded-md"
+                className="text-white flex items-center mr-4 bg-indigo-500 px-4 py-1 rounded-md"
               >
                 My Rentals
               </Link>
