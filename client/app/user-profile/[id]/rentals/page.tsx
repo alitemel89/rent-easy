@@ -35,6 +35,7 @@ const UserRentals = () => {
     fetchUserRentals();
   }, []);
 
+
   return (
     <div className="bg-blue-50 min-h-screen p-8">
       <div className="flex justify-between">

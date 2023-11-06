@@ -12,7 +12,7 @@ export const createRental = async (req: Request, res: Response) => {
   }
 
   try {
-    const { title, description, price, bedrooms, bathrooms, location } = req.body;
+    const { title, description, price, bedrooms, bathrooms, location, images } = req.body;
 
     if (!req.user) {
       return res.status(401).json({ msg: 'User information not available' });
@@ -26,6 +26,7 @@ export const createRental = async (req: Request, res: Response) => {
       return res.status(404).json({ msg: 'User not found' });
     }
 
+    // Include the image URLs in the rental creation
     const rental = new RentalModel({
       title,
       description,
@@ -34,23 +35,23 @@ export const createRental = async (req: Request, res: Response) => {
       bathrooms,
       location,
       userRef: userId,
+      images, // Store the image URLs
     });
 
     await rental.save();
 
     // Now, let's populate the user details in the rental object
-    const populatedRental = await rental
-      .populate({
-        path: "userRef",
-        select: "name surname phoneNumber",
-      })
+    const populatedRental = await rental.populate({
+      path: 'userRef',
+      select: 'name surname phoneNumber',
+    });
 
     res.status(201).json(populatedRental);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send('Server error');
   }
-};
+}
 
 
 // Update a rental listing by ID

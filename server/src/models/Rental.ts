@@ -8,6 +8,7 @@ export interface RentalDocument extends Document {
   bathrooms: number;
   location: string;
   userRef: Schema.Types.ObjectId; // Add userRef field for user reference
+  images: string[];
   // Add more fields as needed
 }
 
@@ -23,6 +24,7 @@ const rentalSchema = new Schema<RentalDocument>({
     ref: 'User', // Refers to the 'User' model (adjust this if needed)
     required: true,
   },
+  images: [{ type: String }]
   // Define additional fields here
 });
 
